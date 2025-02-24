@@ -50,7 +50,6 @@ $(function () {
         getListNotes();
     })
     
-    // Form submission handler
 });
 
 async function saveNotes() {

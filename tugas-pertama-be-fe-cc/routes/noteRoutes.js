@@ -20,18 +20,12 @@ const router = express.Router();
 
 
 
-// Basic CRUD routes
-router.post("/notes", createNote);           // Create note
-router.get("/notes", getNotes);              // Get all notes
-router.get("/notes/:id", getNote);           // Get note by ID
-router.put("/notes/:id", updateNote);        // Update note by ID
-router.delete("/notes/:id", deleteNote);     // Delete note by ID
+router.post("/notes", createNote);           
+router.get("/notes", getNotes);              
+router.get("/notes/:id", getNote);           
+router.put("/notes/:id", updateNote);       
+router.delete("/notes/:id", deleteNote);     
 
-// Additional note-specific routes
-router.get("/users/:userId/notes", getNotesByUserId);  // Get notes by user ID
-router.get("/notes/archived", getArchivedNotes);       // Get all archived notes
-router.put("/notes/:id/archive", archiveNote);         // Archive a note
-router.put("/notes/:id/unarchive", unarchiveNote);     // Unarchive a note
 
 router.get('/view', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'view', 'index.html'));
