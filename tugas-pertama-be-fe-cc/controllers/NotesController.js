@@ -16,14 +16,14 @@ export const createNote = async (req, res) => {
 
 export const getNotes = async (req, res) => {
     try {
-        const search = req.query.search || ''; // Ambil parameter pencarian
+        const search = req.query.search || ''; 
         
         const notes = await Note.findAll({
             where: {
                 [Op.or]: [
-                    { title: { [Op.like]: `%${search}%` } },  // Cari berdasarkan judul
-                    { category: { [Op.like]: `%${search}%` } },  // Cari berdasarkan kategori
-                    { content: { [Op.like]: `%${search}%` } }  // Cari berdasarkan todo
+                    { title: { [Op.like]: `%${search}%` } },  
+                    { category: { [Op.like]: `%${search}%` } },  
+                    { content: { [Op.like]: `%${search}%` } } 
                 ]
             }
         });

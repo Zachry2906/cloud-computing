@@ -6,11 +6,7 @@ import {
     getNotes, 
     getNote, 
     updateNote, 
-    deleteNote,
-    getNotesByUserId,
-    getArchivedNotes,
-    archiveNote,
-    unarchiveNote
+    deleteNote
 } from "../controllers/NotesController.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -23,9 +19,8 @@ const router = express.Router();
 router.post("/notes", createNote);           
 router.get("/notes", getNotes);              
 router.get("/notes/:id", getNote);           
-router.put("/notes/:id", updateNote);       
+router.put("/notes/:id", updateNote);        
 router.delete("/notes/:id", deleteNote);     
-
 
 router.get('/view', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'view', 'index.html'));
