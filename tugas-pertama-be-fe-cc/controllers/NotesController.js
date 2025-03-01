@@ -16,14 +16,14 @@ export const createNote = async (req, res) => {
 
 export const getNotes = async (req, res) => {
     try {
-        const search = req.query.search || ''; // Ambil parameter pencarian
+        const search = req.query.search || ''; 
         
         const notes = await Note.findAll({
             where: {
                 [Op.or]: [
-                    { title: { [Op.like]: `%${search}%` } },  // Cari berdasarkan judul
-                    { category: { [Op.like]: `%${search}%` } },  // Cari berdasarkan kategori
-                    { content: { [Op.like]: `%${search}%` } }  // Cari berdasarkan todo
+                    { title: { [Op.like]: `%${search}%` } },  
+                    { category: { [Op.like]: `%${search}%` } },  
+                    { content: { [Op.like]: `%${search}%` } } 
                 ]
             }
         });
@@ -96,44 +96,5 @@ export const getNotesByUserId = async (req, res) => {
         res.json(response);
     } catch (error) {
         res.status(500).json({ error: error.message });
-    }
-}
-
-export const getArchivedNotes = async (req, res) => {
-    try {
-        const notes = await Note.findAll({
-            where: {
-                isArchived: true
-            }
-        });
-        res.json(notes);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-}
-
-export const archiveNote = async (req, res) => {
-    try {
-        const note = await Note.findByPk(req.params.id);
-        if (!note) {
-            return res.status(404).json({ message: "Note not found" });
-        }
-        await note.update({ isArchived: true });
-        res.json(note);
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
-}
-
-export const unarchiveNote = async (req, res) => {
-    try {
-        const note = await Note.findByPk(req.params.id);
-        if (!note) {
-            return res.status(404).json({ message: "Note not found" });
-        }
-        await note.update({ isArchived: false });
-        res.json(note);
-    } catch (error) {
-        res.status(400).json({ error: error.message });
     }
 }

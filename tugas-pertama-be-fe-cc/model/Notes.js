@@ -32,7 +32,6 @@ const Note = db.define("notes", {
     }
 });
 
-// Auto-create table if it doesn't exist
 Note.sync();
 
 export default Note;
