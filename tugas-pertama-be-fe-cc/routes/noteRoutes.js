@@ -21,7 +21,6 @@ router.get("/notes", getNotes);
 router.get("/notes/:id", getNote);           
 router.put("/notes/:id", updateNote);        
 router.delete("/notes/:id", deleteNote);     
-    
 
 router.get('/view', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'view', 'index.html'));
