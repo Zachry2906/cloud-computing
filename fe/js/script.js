@@ -66,7 +66,7 @@ async function saveNotes() {
     try {
         await $.ajax({
             type: isEditing ? 'PUT' : 'POST',
-            url: isEditing ? `/api/notes/${editingNoteId}` : '/api/notes',
+            url: isEditing ? `${BASE_URL}/api/notes/${editingNoteId}` : '/api/notes',
             contentType: 'application/json',
             data: JSON.stringify(noteData),
             dataType: 'JSON'
@@ -88,7 +88,7 @@ async function getListNotes() {
     try {
         const response = await $.ajax({
             type: 'GET',
-            url: `/api/notes?search=${search}`,
+            url: `${BASE_URL}/api/notes?search=${search}`,
             dataType: 'JSON',
             cache: false
         });
@@ -140,7 +140,7 @@ async function editNotes(id) {
     try {
         const response = await $.ajax({
             type: 'GET',
-            url: `/api/notes/${id}`,
+            url: `${BASE_URL}/api/notes/${id}`,
             dataType: 'JSON',
             cache: false
         });
@@ -165,7 +165,7 @@ async function deleteNotes(id) {
         try {
             await $.ajax({
                 type: 'DELETE',
-                url: `/api/notes/${id}`,
+                url: `${BASE_URL}/api/notes/${id}`,
                 dataType: 'JSON'
             });
             
