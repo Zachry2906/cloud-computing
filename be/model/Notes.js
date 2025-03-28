@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize";
 import db from "../config/db.js";
 
-const Note = db.define("notes", {
+const Note = db.define("coba", {
     title: {
         type: Sequelize.STRING,
         allowNull: false

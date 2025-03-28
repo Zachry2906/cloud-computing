@@ -66,7 +66,7 @@ async function saveNotes() {
     try {
         await $.ajax({
             type: isEditing ? 'PUT' : 'POST',
-            url: isEditing ? `${BASE_URL}/api/notes/${editingNoteId}` : '/api/notes',
+            url: isEditing ? `${BASE_URL}/api/notes/${editingNoteId}` : `${BASE_URL}/api/notes`,
             contentType: 'application/json',
             data: JSON.stringify(noteData),
             dataType: 'JSON'
