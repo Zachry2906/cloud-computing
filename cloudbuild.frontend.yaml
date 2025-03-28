@@ -6,6 +6,7 @@ steps:
       - '-t'
       - 'gcr.io/$PROJECT_ID/frontend-image'
       - '.'
+    dir: 'fe'  # Ganti dengan direktori yang sesuai untuk frontend
 
   # Step 2: Push Docker image ke Container Registry
   - name: 'gcr.io/cloud-builders/docker'
