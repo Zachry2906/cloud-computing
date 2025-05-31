@@ -3,12 +3,17 @@ import { Op } from "sequelize";
 
 export const createNote = async (req, res) => {
     try {
-        const note = await Note.create(req.body);
-        const response = {
+        // Ambil userId dari JWT yang sudah didecode oleh middleware auth
+        const userId = req.id
+        if (!userId) {
+            return res.status(403).json({ message: "ditemukan di token" });
+        }
+        // Sisipkan userId ke data note
+        const note = await Note.create({ ...req.body, userId });
+        res.json({
             message: "Note created successfully",
             data: note
-        };
-        res.json(response);
+        });
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
@@ -16,14 +21,16 @@ export const createNote = async (req, res) => {
 
 export const getNotes = async (req, res) => {
     try {
-        const search = req.query.search || ''; 
-        
+        const search = req.query.search || '';
+        const userId = req.id
+        // Ambil userId dari JWT yang sudah didecode oleh middleware auth
         const notes = await Note.findAll({
             where: {
+                userId, // filter notes milik user yang login
                 [Op.or]: [
-                    { title: { [Op.like]: `%${search}%` } },  
-                    { category: { [Op.like]: `%${search}%` } },  
-                    { content: { [Op.like]: `%${search}%` } } 
+                    { title: { [Op.like]: `%${search}%` } },
+                    { category: { [Op.like]: `%${search}%` } },
+                    { content: { [Op.like]: `%${search}%` } }
                 ]
             }
         });
@@ -85,7 +92,7 @@ export const getNotesByUserId = async (req, res) => {
     try {
         const notes = await Note.findAll({
             where: {
-                userId: req.params.userId
+                id: req.params.id
             }
         });
         const response = {

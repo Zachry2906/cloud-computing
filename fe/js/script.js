@@ -1,4 +1,7 @@
 // Global variables for modal state
+
+const BASE_URL = "http://localhost:3000";
+
 let isEditing = false;
 let editingNoteId = null;
 

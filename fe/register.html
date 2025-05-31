@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Register</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
 </head>
 <body>
     <section class="hero has-background-grey-light is-fullheight is-fullwidth">
@@ -14,17 +13,39 @@
             <div class="container">
                 <div class="columns is-centered">
                     <div class="column is-4-desktop">
-                        <form id="loginForm" class="box">
+                        <form id="registerForm" class="box">
                             <p id="message" class="has-text-centered"></p>
                             <div class="field mt-5">
-                                <label class="label">Email or Username</label>
+                                <label class="label">Name</label>
+                                <div class="controls">
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        class="input"
+                                        placeholder="Name"
+                                    />
+                                </div>
+                            </div>
+                            <div class="field mt-5">
+                                <label class="label">Email</label>
                                 <div class="controls">
                                     <input
                                         type="text"
                                         id="email"
                                         class="input"
-                                        placeholder="Username"
+                                        placeholder="Email"
                                     />
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label class="label">Gender</label>
+                                <div class="control">
+                                    <div class="select is-fullwidth">
+                                        <select id="gender">
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div class="field mt-5">
@@ -39,11 +60,22 @@
                                 </div>
                             </div>
                             <div class="field mt-5">
+                                <label class="label">Confirm Password</label>
+                                <div class="controls">
+                                    <input
+                                        type="password"
+                                        id="confPassword"
+                                        class="input"
+                                        placeholder="******"
+                                    />
+                                </div>
+                            </div>
+                            <div class="field mt-5">
                                 <button type="submit" class="button is-success is-fullwidth">
-                                    Login
+                                    Register
                                 </button>
                             </div>
-                            <a href="register.html">Register</a>
+                            <a href="login.html">Login</a>
                         </form>
                     </div>
                 </div>
@@ -55,27 +87,39 @@
         $(document).ready(function() {
             const BASE_URL = 'http://localhost:3000'; // Replace with your actual base URL
             
-            $("#loginForm").submit(function(e) {
+            $("#registerForm").submit(function(e) {
                 e.preventDefault();
                 
+                const name = $("#name").val();
                 const email = $("#email").val();
+                const gender = $("#gender").val();
                 const password = $("#password").val();
+                const confPassword = $("#confPassword").val();
+                
+                // Check if passwords match
+                if (password !== confPassword) {
+                    $("#message").text("Password dan konfirmasi password tidak cocok");
+                    return;
+                }
                 
                 $.ajax({
-                    url: `${BASE_URL}/api/login`,
+                    url: `${BASE_URL}/api/users`,
                     method: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify({
+                        name: name,
                         email: email,
+                        gender: gender,
                         password: password
                     }),
                     success: function() {
-                        window.location.href = 'notes.html';
+                        // Redirect to login page on success
+                        window.location.href = 'index.html';
                     },
                     error: function(xhr) {
                         // Display error message
-                        if (xhr.responseJSON && xhr.responseJSON.message) {
-                            $("#message").text(xhr.responseJSON.message);
+                        if (xhr.responseJSON && xhr.responseJSON.msg) {
+                            $("#message").text(xhr.responseJSON.msg);
                         } else {
                             $("#message").text("An error occurred. Please try again.");
                         }
