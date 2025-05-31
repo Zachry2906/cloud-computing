@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { jwtDecode } from "jwt-decode";
 
-const BASE_URL = 'http://localhost:3000';
+const BASE_URL = 'https://notes-be077-283162572185.us-central1.run.app';
 let token = "";
 let expire = "";
 let name = "";
