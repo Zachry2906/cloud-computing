@@ -1,8 +1,7 @@
 steps:
   # 1. Build Docker image untuk backend
-  - # Ngambil data env yg disimpen di cloud storage pake gsuri
   - name: "gcr.io/cloud-builders/gsutil"
-  - args: [ "cp", "${_ENV}", "be/.env" ]
+    args: [ "cp", "${_ENV}", "be/.env" ]
 
 
   - name: "gcr.io/cloud-builders/docker"
