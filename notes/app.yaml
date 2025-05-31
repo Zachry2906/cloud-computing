@@ -3,12 +3,23 @@ service: fe-0777
 instance_class: F1
 
 handlers:
-  - url: /
-    static_files: public/index.html
-    upload: public/index.html
+  # Static assets first (highest priority)
+  - url: /static
+    static_dir: build/static
 
-  - url: /(.*)
-    static_files: public/\1
-    upload: public/(.*)
+  # Specific files
+  - url: /manifest.json
+    static_files: build/manifest.json
+    upload: build/manifest.json
 
-default_expiration: "1h"
+  - url: /favicon.ico
+    static_files: build/favicon.ico
+    upload: build/favicon.ico
+
+  # Root and catch-all (lowest priority)
+  - url: /.*
+    static_files: build/index.html
+    upload: build/index.html
+    mime_type: text/html
+
+default_expiration: '1h'
