@@ -29,7 +29,7 @@ setupRelations(); // Setup relations setelah mendefinisikan model
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:3001", // <- Diganti sama alamat front-end
+    origin: "https://fe-0777-dot-b-07-452412.uc.r.appspot.com", // <- Diganti sama alamat front-end
     credentials: true,
   })
 );
